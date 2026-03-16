@@ -1,7 +1,9 @@
-import requests
-from bs4 import BeautifulSoup
-import pandas as pd
+from newsapi import NewsApiClient
 from newspaper import Article
+import pandas as pd
+
+# Initialize API
+newsapi = NewsApiClient(api_key="cbce3fd814e241adae414283322013f9")
 
 queries = [
     "Trump Ashli Babbitt",
@@ -12,51 +14,48 @@ records = []
 
 for query in queries:
 
-    print("Searching:", query)
+    print("\nSearching:", query)
 
-    search_url = f"https://www.google.com/search?q={query}&tbm=nws"
+    articles = newsapi.get_everything(
+        q=query,
+        language="en",
+        sort_by="relevancy",
+        page_size=20
+    )
 
-    headers = {
-        "User-Agent": "Mozilla/5.0"
-    }
+    for article in articles["articles"]:
 
-    response = requests.get(search_url, headers=headers)
+        url = article["url"]
+        title = article["title"]
 
-    soup = BeautifulSoup(response.text, "html.parser")
+        try:
 
-    links = soup.select("a")
+            print("Scraping:", url)
 
-    for link in links:
+            art = Article(url)
+            art.download()
+            art.parse()
 
-        href = link.get("href")
+            text = art.text
 
-        if href and "http" in href:
+            if len(text) > 200:
 
-            try:
+                records.append({
+                    "query": query,
+                    "title": title,
+                    "url": url,
+                    "text": text
+                })
 
-                print("Scraping article:", href)
+        except Exception as e:
 
-                article = Article(href)
+            print("Skipping:", e)
 
-                article.download()
-                article.parse()
+            continue
 
-                text = article.text
-
-                if len(text) > 200:
-
-                    records.append({
-                        "query": query,
-                        "url": href,
-                        "title": article.title,
-                        "text": text
-                    })
-
-            except:
-                continue
 
 df = pd.DataFrame(records)
 
 df.to_csv("data_raw/articles.csv", index=False)
 
-print("Articles collected:", len(df))
+print("\nArticles collected:", len(df))
