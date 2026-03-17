@@ -9,7 +9,7 @@ queries = [
     "Trump Ashli Babbitt",
     "Trump Renee Good"
 ]
-
+ 
 records = []
 
 for query in queries:
