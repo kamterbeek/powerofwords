@@ -35,6 +35,7 @@ for url in urls:
                      "keyword": keyword,
                      "text": text
                  })
+              
 
 df = pd.DataFrame(records)
 
