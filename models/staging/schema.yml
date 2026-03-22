@@ -2,7 +2,14 @@ version: 2
 
 sources:
   - name: raw
-    database: your_project
     schema: your_dataset
     tables:
       - name: articles
+
+models:
+  - name: stg_articles
+    description: "Cleaned staging model for scraped articles"
+    columns:
+      - name: url
+        tests:
+          - not_null
