@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw
+    database: your_project
+    schema: your_dataset
+    tables:
+      - name: articles
