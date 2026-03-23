@@ -2,9 +2,9 @@ version: 2
 
 sources:
   - name: raw
-    schema: raw_data
+    schema: power_of_words
     tables:
-      - name: articles
+      - name: raw_data
 
 models:
   - name: stg_articles
