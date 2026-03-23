@@ -1,10 +1,14 @@
 SELECT
-    id,
+    -- create a stable unique ID
+    TO_HEX(MD5(url)) AS article_id,
+
+    query,
     title,
+    url,
 
     article_clean,
 
-    -- 📊 Basic NLP features
+    -- Basic NLP features
     LENGTH(article_clean) AS char_count,
 
     ARRAY_LENGTH(SPLIT(article_clean, ' ')) AS word_count,
