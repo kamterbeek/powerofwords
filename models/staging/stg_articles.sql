@@ -1,7 +1,7 @@
 WITH source AS (
 
     SELECT *
-    FROM {{ source('raw', 'articles') }}
+    FROM {{ source('raw', 'raw_data') }}
 
 ),
 
