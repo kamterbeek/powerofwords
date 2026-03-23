@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: raw
-    schema: power_of_words
+    schema: raw_data
     tables:
       - name: articles
 
