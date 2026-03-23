@@ -19,3 +19,6 @@ clean-targets:
 models:
   powerofwords:
     +materialized: table
+
+    python:
+      +enabled: false
