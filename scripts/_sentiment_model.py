@@ -1,7 +1,7 @@
 def model(dbt, session):
     dbt.config(
         materialized="table",
-        enabled=False   # 👈 disables the model so dbt run succeeds
+        enabled=False   # disables the model so dbt run succeeds
     )
 
     from textblob import TextBlob
