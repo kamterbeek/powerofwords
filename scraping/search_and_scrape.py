@@ -1,6 +1,7 @@
 from newsapi import NewsApiClient
 from newspaper import Article
 import pandas as pd
+
 # Initialize the API
 newsapi = NewsApiClient(api_key="cbce3fd814e241adae414283322013f9")
 
